@@ -1,0 +1,5 @@
+/* Tailwind handles everything — minimal globals only */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; outline: none; }
+input, textarea, select { outline: none; }

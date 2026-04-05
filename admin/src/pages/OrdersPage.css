@@ -1,0 +1,165 @@
+.orders-admin-page { padding: 32px; }
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.page-header h1 { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
+.page-header p { color: var(--text-light); font-size: 13px; }
+
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-bottom: 20px;
+  padding-bottom: 4px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.filter-tabs::-webkit-scrollbar { display: none; }
+
+.filter-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 600;
+  background: white;
+  color: var(--text-light);
+  border: 1.5px solid var(--border);
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.filter-tab:hover { border-color: var(--saffron); color: var(--saffron); }
+.filter-tab.active { background: var(--saffron); color: white; border-color: var(--saffron); }
+
+.tab-count {
+  background: rgba(255,255,255,0.25);
+  padding: 1px 7px;
+  border-radius: 10px;
+  font-size: 11px;
+}
+.filter-tab:not(.active) .tab-count { background: #f0f0f0; color: var(--text-light); }
+
+.loading-text { text-align: center; padding: 60px; color: var(--text-light); }
+.no-orders { text-align: center; padding: 60px; color: var(--text-light); background: white; border-radius: var(--radius); }
+
+.orders-list { display: flex; flex-direction: column; gap: 12px; }
+
+.order-card-admin {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  border: 1.5px solid var(--border);
+  transition: box-shadow 0.2s;
+}
+.order-card-admin:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+
+.order-card-top {
+  display: grid;
+  grid-template-columns: 200px 1fr auto;
+  padding: 16px 20px;
+  gap: 16px;
+  cursor: pointer;
+  align-items: center;
+}
+@media (max-width: 640px) {
+  .order-card-top { grid-template-columns: 1fr auto; }
+  .order-card-mid { display: none; }
+}
+
+.order-card-left { display: flex; flex-direction: column; gap: 3px; }
+.oid { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 16px; color: var(--saffron); }
+.odate { font-size: 12px; color: var(--text-light); }
+
+.order-card-mid { display: flex; flex-direction: column; gap: 3px; }
+.oname { font-weight: 700; font-size: 14px; }
+.ophone { font-size: 13px; color: var(--text-light); }
+
+.order-card-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ototal { font-family: 'Baloo 2', cursive; font-size: 20px; font-weight: 800; color: var(--green); }
+.ostatus {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.expand-icon { color: var(--text-light); font-size: 12px; }
+
+.order-card-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  border-top: 1.5px solid var(--border);
+  background: #fafaf7;
+}
+@media (max-width: 640px) { .order-card-detail { grid-template-columns: 1fr; } }
+
+.detail-items h4, .detail-info h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+.detail-item-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 5px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.detail-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 800;
+  font-size: 15px;
+  padding-top: 8px;
+  color: var(--saffron);
+}
+
+.detail-info p {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-bottom: 6px;
+}
+.detail-info p strong { color: var(--text); }
+
+.status-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.status-btn {
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  background: white;
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  transition: all 0.15s;
+}
+.status-btn:hover:not(:disabled) { border-color: var(--saffron); color: var(--saffron); }
+.status-btn.current {
+  background: var(--saffron);
+  color: white;
+  border-color: var(--saffron);
+  cursor: default;
+}
+.status-btn:disabled:not(.current) { opacity: 0.4; }
+
+@media (max-width: 768px) { .orders-admin-page { padding: 16px; } }
