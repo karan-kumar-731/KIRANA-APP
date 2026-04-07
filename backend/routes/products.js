@@ -39,7 +39,9 @@ router.get('/:id', async (req, res) => {
 router.post('/', protect, adminOnly, upload.single('image'), async (req, res) => {
   try {
     const { name, description, price, category, stock, unit } = req.body;
-    const image = req.file ? `/uploads/${req.file.filename}` : '';
+const image = req.file
+  ? `https://kirana-app-s0v1.onrender.com/uploads/${req.file.filename}`
+  : '';
     const product = await Product.create({ name, description, price, category, stock, unit, image });
     res.status(201).json(product);
   } catch (err) {
@@ -52,7 +54,9 @@ router.put('/:id', protect, adminOnly, upload.single('image'), async (req, res) 
   try {
     const { name, description, price, category, stock, unit, isAvailable } = req.body;
     const update = { name, description, price, category, stock, unit, isAvailable };
-    if (req.file) update.image = `/uploads/${req.file.filename}`;
+    if (req.file) {
+  update.image = `https://kirana-app-s0v1.onrender.com/uploads/${req.file.filename}`;
+}
     const product = await Product.findByIdAndUpdate(req.params.id, update, { new: true });
     res.json(product);
   } catch (err) {
