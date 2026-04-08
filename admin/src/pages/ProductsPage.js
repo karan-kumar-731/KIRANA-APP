@@ -123,10 +123,11 @@ export default function ProductsPage() {
             </thead>
             <tbody>
               {filtered.map(p => {
-                const imgSrc = p.image?.startsWith('http') ? p.image : `${BASE}${p.image}`;
+              const imgSrc = `${API}/products/image/${p._id}`;
                 return (
                   <tr key={p._id}>
                     <td>
+                      
                       <img src={imgSrc} alt={p.name}
                         onError={e => { e.target.src = 'https://via.placeholder.com/48?text=P'; }} />
                     </td>
