@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ProductCard from '../components/ProductCard';
 
-const API = "import.meta.env.VITE_API_URL";
+const API = process.env.REACT_APP_API_URL;
 const CATEGORIES = ['All', 'Atta & Rice', 'Dal & Pulses', 'Oil & Ghee', 'Spices', 'Snacks', 'Dairy', 'Beverages', 'Soap & Cleaning', 'Other'];
 
 const CATEGORY_ICONS = {
