@@ -83,7 +83,11 @@ export default function CartPage() {
           {/* Cart Items */}
           <div className="flex-1 flex flex-col gap-3">
             {cart.map(item => {
-              const imgSrc = item.image?.startsWith('http') ? item.image : `${API}${item.image}`;
+             const imgSrc = typeof item.image === 'string' && item.image.startsWith('http') 
+  ? item.image 
+  : typeof item.image === 'string' 
+    ? `${API}${item.image}` 
+    : 'https://placehold.co/80?text=Item';
               return (
                 <div
                   key={item._id}
