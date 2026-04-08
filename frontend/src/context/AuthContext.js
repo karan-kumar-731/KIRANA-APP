@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
 
 const AuthContext = createContext();
 
@@ -11,20 +10,17 @@ export const AuthProvider = ({ children }) => {
     if (stored) {
       const u = JSON.parse(stored);
       setUser(u);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${u.token}`;
     }
   }, []);
 
   const login = (userData) => {
     setUser(userData);
     localStorage.setItem('kiranaUser', JSON.stringify(userData));
-    axios.defaults.headers.common['Authorization'] = `Bearer ${userData.token}`;
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem('kiranaUser');
-    delete axios.defaults.headers.common['Authorization'];
   };
 
   return (
