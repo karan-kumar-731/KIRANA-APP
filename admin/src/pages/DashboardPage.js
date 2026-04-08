@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './DashboardPage.css';
 
-const API = "import.meta.env.VITE_API_URL";
+const API = process.env.REACT_APP_API_URL;
 
 const STAT_CARDS = [
   { key: 'totalRevenue', label: 'Total Revenue', icon: '💰', prefix: '₹', color: '#FF6B00' },

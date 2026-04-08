@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UsersPage.css';
 
-const API = "import.meta.env.VITE_API_URL";
+const API = process.env.REACT_APP_API_URL;
 
 export default function UsersPage() {
   const [users, setUsers] = useState([]);

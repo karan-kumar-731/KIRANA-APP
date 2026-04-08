@@ -3,7 +3,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import './ProductsPage.css';
 
-const API = "import.meta.env.VITE_API_URL";
+const API = process.env.REACT_APP_API_URL;
 const BASE = API.replace('/api', '');
 
 const CATEGORIES = ['Atta & Rice', 'Dal & Pulses', 'Oil & Ghee', 'Spices', 'Snacks', 'Dairy', 'Beverages', 'Soap & Cleaning', 'Other'];
