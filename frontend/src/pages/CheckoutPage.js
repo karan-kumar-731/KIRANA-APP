@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 
-const API = "https://kirana-app-s0v1.onrender.com/api";
+const API = "import.meta.env.VITE_API_URL";
 
 export default function CheckoutPage() {
   const { cart, cartTotal, clearCart } = useCart();
