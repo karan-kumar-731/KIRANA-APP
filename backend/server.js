@@ -10,11 +10,10 @@ const app = express();
 
 // ✅ CORS - both frontend and admin allowed
 app.use(cors({
-  origin: [
+origin: [
     "https://kirana-app-kixv.vercel.app",
-    "https://kirana-app-cyan.vercel.app",
-    "https://NAYA-ADMIN-URL.vercel.app" 
-  ],
+    "https://kirana-app-cyan.vercel.app"
+],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
