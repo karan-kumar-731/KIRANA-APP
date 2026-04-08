@@ -6,7 +6,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 
-const API = process.env.REACT_APP_API_URL;
+const API = "https://kirana-app-1-qxan.onrender.com/api";
 
 export default function LoginPage() {
   const [form, setForm] = useState({ phone: '', password: '' });

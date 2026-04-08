@@ -4,7 +4,7 @@ import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-const API = process.env.REACT_APP_API_URL;
+const API = "https://kirana-app-1-qxan.onrender.com/api";
 
 export default function ProductCard({ product }) {
   const { cart, addToCart, updateQty, removeFromCart } = useCart();
