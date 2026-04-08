@@ -9,7 +9,10 @@ const productSchema = new mongoose.Schema({
     required: true,
     enum: ['Atta & Rice', 'Dal & Pulses', 'Oil & Ghee', 'Spices', 'Snacks', 'Dairy', 'Beverages', 'Soap & Cleaning', 'Other']
   },
-  image: { type: String, default: '' },
+  image: {
+  data: Buffer,
+  contentType: String,
+},
   stock: { type: Number, default: 0, min: 0 },
   unit: { type: String, default: 'piece' },
   isAvailable: { type: Boolean, default: true },
