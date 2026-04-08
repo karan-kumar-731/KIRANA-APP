@@ -6,7 +6,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 
-const API = "https://kirana-app-1-qxan.onrender.com/api";
+const API = "https://kirana-app-wph6.onrender.com/api";
 
 export default function RegisterPage() {
   const [form, setForm] = useState({ name: '', phone: '', password: '', address: '' });
