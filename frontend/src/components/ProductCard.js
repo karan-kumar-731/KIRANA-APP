@@ -12,9 +12,7 @@ export default function ProductCard({ product }) {
   const navigate = useNavigate();
   const cartItem = cart.find(i => i._id === product._id);
 
-  const imgSrc = product.image?.startsWith('http')
-    ? product.image
-    : `${API}${product.image}`;
+ const imgSrc = `${API}/products/image/${product._id}`;
 
   const handleAdd = () => {
     if (!user) {
