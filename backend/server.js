@@ -12,7 +12,8 @@ const app = express();
 app.use(cors({
   origin: [
     "https://kirana-app-kixv.vercel.app",
-    "https://kirana-app-cyan.vercel.app"
+    "https://kirana-app-cyan.vercel.app",
+    "https://NAYA-ADMIN-URL.vercel.app" 
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
