@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 
-const API = "https://kirana-app-s0v1.onrender.com/api";
+const API = "import.meta.env.VITE_API_URL";
 
 export default function LoginPage() {
   const [form, setForm] = useState({ phone: '', password: '' });

@@ -3,7 +3,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import './OrdersPage.css';
 
-const API = "https://kirana-app-s0v1.onrender.com/api";
+const API = "import.meta.env.VITE_API_URL";
 
 const STATUSES = ['Pending', 'Confirmed', 'Out for Delivery', 'Delivered', 'Cancelled'];
 
