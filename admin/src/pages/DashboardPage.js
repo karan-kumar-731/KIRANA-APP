@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './DashboardPage.css';
 
-const API = "https://kirana-app-1-qxan.onrender.com/api";
+const API = "https://kirana-app-wph6.onrender.com/api";
 
 const STAT_CARDS = [
   { key: 'totalRevenue', label: 'Total Revenue', icon: '💰', prefix: '₹', color: '#FF6B00' },

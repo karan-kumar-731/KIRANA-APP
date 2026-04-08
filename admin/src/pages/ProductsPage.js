@@ -3,7 +3,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import './ProductsPage.css';
 
-const API = "https://kirana-app-1-qxan.onrender.com/api";
+const API = "https://kirana-app-wph6.onrender.com/api";
 const BASE = API.replace('/api', '');
 
 const CATEGORIES = ['Atta & Rice', 'Dal & Pulses', 'Oil & Ghee', 'Spices', 'Snacks', 'Dairy', 'Beverages', 'Soap & Cleaning', 'Other'];

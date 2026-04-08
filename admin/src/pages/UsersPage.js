@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UsersPage.css';
 
-const API = "https://kirana-app-1-qxan.onrender.com/api";
+const API = "https://kirana-app-wph6.onrender.com/api";
 
 export default function UsersPage() {
   const [users, setUsers] = useState([]);
