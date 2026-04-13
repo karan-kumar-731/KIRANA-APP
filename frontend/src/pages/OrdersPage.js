@@ -1,15 +1,166 @@
 
+// import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import { Link } from 'react-router-dom';
+
+// const API = "https://kirana-app-wph6.onrender.com/api";
+// const STATUS_CONFIG = {
+//   Pending:            { bg: 'bg-amber-50',  text: 'text-amber-700',  border: 'border-amber-200',  dot: 'bg-amber-500',  icon: '⏳', label: 'Pending' },
+//   Confirmed:          { bg: 'bg-blue-50',   text: 'text-blue-700',   border: 'border-blue-200',   dot: 'bg-blue-500',   icon: '✅', label: 'Confirmed' },
+//   'Out for Delivery': { bg: 'bg-orange-50', text: 'text-orange-700', border: 'border-orange-200', dot: 'bg-orange-500', icon: '🛵', label: 'Out for Delivery' },
+//   Delivered:          { bg: 'bg-green-50',  text: 'text-green-700',  border: 'border-green-200',  dot: 'bg-green-500',  icon: '🎉', label: 'Delivered' },
+//   Cancelled:          { bg: 'bg-red-50',    text: 'text-red-600',    border: 'border-red-200',    dot: 'bg-red-500',    icon: '❌', label: 'Cancelled' },
+// };
+
+// export default function OrdersPage() {
+//   const [orders, setOrders] = useState([]);
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     fetchOrders();
+//     const interval = setInterval(fetchOrders, 30000);
+//     return () => clearInterval(interval);
+//   }, []);
+
+//   const fetchOrders = async () => {
+//     try {
+//       const { data } = await axios.get(`${API}/orders/my`);
+//       setOrders(data);
+//     } catch (err) {
+//       console.error(err);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   if (loading) {
+//     return (
+//       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+//         <div className="flex flex-col items-center gap-3">
+//           <div className="w-10 h-10 rounded-full border-4 border-orange-200 border-t-orange-500 animate-spin" />
+//           <p className="text-gray-400 text-sm font-medium">Loading your orders...</p>
+//         </div>
+//       </div>
+//     );
+//   }
+
+//   if (orders.length === 0) {
+//     return (
+//       <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center gap-5 px-4">
+//         <div className="w-32 h-32 bg-orange-50 rounded-3xl flex items-center justify-center border-2 border-orange-100">
+//           <span className="text-6xl">📦</span>
+//         </div>
+//         <div className="text-center">
+//           <h2 className="text-2xl font-bold text-gray-800 mb-1">No orders yet!</h2>
+//           <p className="text-gray-500 text-sm">Your orders will appear here once you place one.</p>
+//         </div>
+//         <Link
+//           to="/"
+//           className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-3 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5"
+//         >
+//           Start Shopping →
+//         </Link>
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div className="min-h-screen bg-gray-50">
+//       <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+//         {/* Header */}
+//         <div className="flex items-center justify-between mb-6">
+//           <div>
+//             <h2 className="text-2xl md:text-3xl font-bold text-gray-900">My Orders</h2>
+//             <p className="text-gray-400 text-sm mt-0.5">
+//               {orders.length} order{orders.length !== 1 ? 's' : ''} · Auto-refreshes every 30s
+//             </p>
+//           </div>
+//           <div className="flex items-center gap-1.5 text-xs text-green-600 bg-green-50 border border-green-200 px-3 py-1.5 rounded-full font-semibold">
+//             <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+//             Live tracking
+//           </div>
+//         </div>
+
+//         {/* Orders List */}
+//         <div className="flex flex-col gap-4">
+//           {orders.map(order => {
+//             const cfg = STATUS_CONFIG[order.status] || STATUS_CONFIG.Pending;
+//             return (
+//               <div
+//                 key={order._id}
+//                 className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition-all duration-200"
+//               >
+//                 {/* Card Header */}
+//                 <div className="flex flex-wrap items-center justify-between gap-3 p-5 border-b border-gray-100">
+//                   <div className="flex items-center gap-3">
+//                     <div className="w-10 h-10 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center text-lg">
+//                       📦
+//                     </div>
+//                     <div>
+//                       <p className="font-bold text-gray-900 text-base">
+//                         Order #{order._id.slice(-8).toUpperCase()}
+//                       </p>
+//                       <p className="text-gray-400 text-xs mt-0.5">
+//                         {new Date(order.createdAt).toLocaleString('en-IN')}
+//                       </p>
+//                     </div>
+//                   </div>
+//                   <span className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-bold border ${cfg.bg} ${cfg.text} ${cfg.border}`}>
+//                     <span className={`w-1.5 h-1.5 rounded-full ${cfg.dot} ${order.status !== 'Delivered' && order.status !== 'Cancelled' ? 'animate-pulse' : ''}`} />
+//                     {cfg.icon} {cfg.label}
+//                   </span>
+//                 </div>
+
+//                 {/* Items */}
+//                 <div className="px-5 py-4 space-y-2.5">
+//                   {order.items.map((item, i) => (
+//                     <div key={i} className="flex justify-between items-center text-sm">
+//                       <div className="flex items-center gap-2 min-w-0">
+//                         <span className="w-1.5 h-1.5 bg-orange-300 rounded-full shrink-0" />
+//                         <span className="text-gray-700 font-medium truncate">{item.name}</span>
+//                         <span className="text-gray-400 shrink-0">× {item.quantity}</span>
+//                       </div>
+//                       <span className="font-semibold text-gray-900 shrink-0 ml-4">₹{item.price * item.quantity}</span>
+//                     </div>
+//                   ))}
+//                 </div>
+
+//                 {/* Card Footer */}
+//                 <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-4 bg-gray-50 border-t border-gray-100">
+//                   <div className="space-y-1 text-xs text-gray-500">
+//                     <p className="flex items-center gap-1.5">
+//                       <span>🏠</span> {order.deliveryAddress}
+//                     </p>
+//                     <p className="flex items-center gap-3">
+//                       <span>💵 {order.paymentMethod}</span>
+//                       <span>⏱️ {order.estimatedDelivery}</span>
+//                     </p>
+//                   </div>
+//                   <div className="text-right">
+//                     <p className="text-xs text-gray-400 mb-0.5">Total Amount</p>
+//                     <p className="font-bold text-orange-500 text-2xl">₹{order.totalAmount}</p>
+//                   </div>
+//                 </div>
+//               </div>
+//             );
+//           })}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const API = "https://kirana-app-wph6.onrender.com/api";
+const API = "https://kirana-app-wph6.onrender.com/api";;
 const STATUS_CONFIG = {
-  Pending:            { bg: 'bg-amber-50',  text: 'text-amber-700',  border: 'border-amber-200',  dot: 'bg-amber-500',  icon: '⏳', label: 'Pending' },
-  Confirmed:          { bg: 'bg-blue-50',   text: 'text-blue-700',   border: 'border-blue-200',   dot: 'bg-blue-500',   icon: '✅', label: 'Confirmed' },
-  'Out for Delivery': { bg: 'bg-orange-50', text: 'text-orange-700', border: 'border-orange-200', dot: 'bg-orange-500', icon: '🛵', label: 'Out for Delivery' },
-  Delivered:          { bg: 'bg-green-50',  text: 'text-green-700',  border: 'border-green-200',  dot: 'bg-green-500',  icon: '🎉', label: 'Delivered' },
-  Cancelled:          { bg: 'bg-red-50',    text: 'text-red-600',    border: 'border-red-200',    dot: 'bg-red-500',    icon: '❌', label: 'Cancelled' },
+  Pending:            { bg: 'bg-amber-50',   text: 'text-amber-700',   border: 'border-amber-200',   dot: 'bg-amber-500',   label: 'Pending' },
+  Confirmed:          { bg: 'bg-blue-50',    text: 'text-blue-700',    border: 'border-blue-200',    dot: 'bg-blue-500',    label: 'Confirmed' },
+  'Out for Delivery': { bg: 'bg-orange-50',  text: 'text-orange-700',  border: 'border-orange-200',  dot: 'bg-orange-500',  label: 'Out for Delivery' },
+  Delivered:          { bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-200', dot: 'bg-emerald-500', label: 'Delivered' },
+  Cancelled:          { bg: 'bg-red-50',     text: 'text-red-600',     border: 'border-red-200',     dot: 'bg-red-500',     label: 'Cancelled' },
 };
 
 export default function OrdersPage() {
@@ -23,123 +174,98 @@ export default function OrdersPage() {
   }, []);
 
   const fetchOrders = async () => {
-    try {
-      const { data } = await axios.get(`${API}/orders/my`);
-      setOrders(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+    try { const { data } = await axios.get(`${API}/orders/my`); setOrders(data); }
+    catch (err) { console.error(err); }
+    finally { setLoading(false); }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 rounded-full border-4 border-orange-200 border-t-orange-500 animate-spin" />
-          <p className="text-gray-400 text-sm font-medium">Loading your orders...</p>
-        </div>
+  if (loading) return (
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="flex flex-col items-center gap-2.5">
+        <div className="w-8 h-8 rounded-full border-2 border-gray-200 border-t-blue-500 animate-spin" />
+        <p className="text-gray-400 text-sm">Loading your orders...</p>
       </div>
-    );
-  }
+    </div>
+  );
 
-  if (orders.length === 0) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center gap-5 px-4">
-        <div className="w-32 h-32 bg-orange-50 rounded-3xl flex items-center justify-center border-2 border-orange-100">
-          <span className="text-6xl">📦</span>
-        </div>
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-800 mb-1">No orders yet!</h2>
-          <p className="text-gray-500 text-sm">Your orders will appear here once you place one.</p>
-        </div>
-        <Link
-          to="/"
-          className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-3 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5"
-        >
-          Start Shopping →
-        </Link>
+  if (orders.length === 0) return (
+    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center gap-4 px-4">
+      <div className="w-20 h-20 bg-gray-100 rounded-2xl flex items-center justify-center">
+        <svg className="w-9 h-9 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+        </svg>
       </div>
-    );
-  }
+      <div className="text-center">
+        <h2 className="text-xl font-semibold text-gray-800 mb-1">No orders yet</h2>
+        <p className="text-gray-500 text-sm">Your orders will appear here once you place one.</p>
+      </div>
+      <Link to="/" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2.5 rounded-md text-sm transition-all duration-150 shadow-sm">
+        Start Shopping →
+      </Link>
+    </div>
+  );
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+    <div className="min-h-screen bg-slate-50">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <div className="flex items-center justify-between mb-5">
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">My Orders</h2>
-            <p className="text-gray-400 text-sm mt-0.5">
-              {orders.length} order{orders.length !== 1 ? 's' : ''} · Auto-refreshes every 30s
-            </p>
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900">My Orders</h2>
+            <p className="text-gray-400 text-xs mt-0.5">{orders.length} order{orders.length !== 1 ? 's' : ''} · Auto-refreshes every 30s</p>
           </div>
-          <div className="flex items-center gap-1.5 text-xs text-green-600 bg-green-50 border border-green-200 px-3 py-1.5 rounded-full font-semibold">
-            <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+          <div className="flex items-center gap-1.5 text-xs text-emerald-600 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-full font-medium">
+            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
             Live tracking
           </div>
         </div>
 
-        {/* Orders List */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3">
           {orders.map(order => {
             const cfg = STATUS_CONFIG[order.status] || STATUS_CONFIG.Pending;
             return (
-              <div
-                key={order._id}
-                className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition-all duration-200"
-              >
-                {/* Card Header */}
-                <div className="flex flex-wrap items-center justify-between gap-3 p-5 border-b border-gray-100">
+              <div key={order._id} className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-sm transition-all duration-150">
+                <div className="flex flex-wrap items-center justify-between gap-3 p-4 border-b border-gray-100">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center text-lg">
-                      📦
+                    <div className="w-9 h-9 rounded-lg bg-gray-50 border border-gray-200 flex items-center justify-center">
+                      <svg className="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                      </svg>
                     </div>
                     <div>
-                      <p className="font-bold text-gray-900 text-base">
-                        Order #{order._id.slice(-8).toUpperCase()}
-                      </p>
-                      <p className="text-gray-400 text-xs mt-0.5">
-                        {new Date(order.createdAt).toLocaleString('en-IN')}
-                      </p>
+                      <p className="font-semibold text-gray-900 text-sm">Order #{order._id.slice(-8).toUpperCase()}</p>
+                      <p className="text-gray-400 text-xs mt-0.5">{new Date(order.createdAt).toLocaleString('en-IN')}</p>
                     </div>
                   </div>
-                  <span className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-bold border ${cfg.bg} ${cfg.text} ${cfg.border}`}>
+                  <span className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${cfg.bg} ${cfg.text} ${cfg.border}`}>
                     <span className={`w-1.5 h-1.5 rounded-full ${cfg.dot} ${order.status !== 'Delivered' && order.status !== 'Cancelled' ? 'animate-pulse' : ''}`} />
-                    {cfg.icon} {cfg.label}
+                    {cfg.label}
                   </span>
                 </div>
 
-                {/* Items */}
-                <div className="px-5 py-4 space-y-2.5">
+                <div className="px-4 py-3 space-y-2">
                   {order.items.map((item, i) => (
                     <div key={i} className="flex justify-between items-center text-sm">
                       <div className="flex items-center gap-2 min-w-0">
-                        <span className="w-1.5 h-1.5 bg-orange-300 rounded-full shrink-0" />
-                        <span className="text-gray-700 font-medium truncate">{item.name}</span>
-                        <span className="text-gray-400 shrink-0">× {item.quantity}</span>
+                        <span className="w-1 h-1 bg-gray-300 rounded-full shrink-0" />
+                        <span className="text-gray-700 text-xs font-medium truncate">{item.name}</span>
+                        <span className="text-gray-400 text-xs shrink-0">× {item.quantity}</span>
                       </div>
-                      <span className="font-semibold text-gray-900 shrink-0 ml-4">₹{item.price * item.quantity}</span>
+                      <span className="font-semibold text-gray-900 text-xs shrink-0 ml-4">₹{item.price * item.quantity}</span>
                     </div>
                   ))}
                 </div>
 
-                {/* Card Footer */}
-                <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-4 bg-gray-50 border-t border-gray-100">
+                <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 bg-gray-50 border-t border-gray-100">
                   <div className="space-y-1 text-xs text-gray-500">
-                    <p className="flex items-center gap-1.5">
-                      <span>🏠</span> {order.deliveryAddress}
-                    </p>
+                    <p className="flex items-center gap-1.5">🏠 {order.deliveryAddress}</p>
                     <p className="flex items-center gap-3">
                       <span>💵 {order.paymentMethod}</span>
                       <span>⏱️ {order.estimatedDelivery}</span>
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-xs text-gray-400 mb-0.5">Total Amount</p>
-                    <p className="font-bold text-orange-500 text-2xl">₹{order.totalAmount}</p>
+                    <p className="text-[10px] text-gray-400 mb-0.5">Total</p>
+                    <p className="font-bold text-blue-600 text-xl">₹{order.totalAmount}</p>
                   </div>
                 </div>
               </div>
