@@ -14,3 +14,12 @@
 @media (max-width: 768px) {
   .admin-main { margin-left: 0; padding-top: 60px; }
 }
+
+
+.admin-layout {
+  display: flex;
+}
+
+.admin-main {
+  flex: 1;
+}
