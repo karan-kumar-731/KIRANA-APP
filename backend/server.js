@@ -8,16 +8,19 @@ dotenv.config();
 
 const app = express();
 
-// ✅ CORS - both frontend and admin allowed
 app.use(cors({
-origin: [
-    "https://kirana-app-kixv.vercel.app",
-    "https://kirana-app-cyan.vercel.app"
-],
+  origin: [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://localhost:5173",
+    "https://kirana-app-cyan.vercel.app",   // user frontend
+    "https://kirana-app-kixv.vercel.app"    // admin panel
+  ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
+
 app.options('*', cors());
 
 app.use(express.json());
@@ -33,12 +36,8 @@ app.use('/api/products', require('./routes/products'));
 app.use('/api/orders', require('./routes/orders'));
 app.use('/api/admin', require('./routes/admin'));
 
-// ✅ Keep Render alive - pings every 14 minutes
-setInterval(() => {
-  fetch(`https://kirana-app-1-qxan.onrender.com/api/health`)
-    .catch(() => {});
-}, 14 * 60 * 1000);
-
+// Local dev: no external health pings required. Removed production
+// keep-alive pings that targeted Render/Vercel deployment URLs.
 // Connect DB and start server
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
